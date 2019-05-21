@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'io.freefair.aspectj.post-compile-weaving' version '3.5.4'
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+}
+
+group 'com.kaushikam'
+version '1.0-SNAPSHOT'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/java'
+    test.java.srcDirs += 'src/test/java'
+}
+
+mainClassName = 'com.kaushikam.aspect.HelloWorld'
+
+dependencies {
+    compile "org.aspectj:aspectjrt:1.9.3"
+    implementation  'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
+
+    // Logging
+    implementation 'org.slf4j:slf4j-api'
+    implementation 'ch.qos.logback:logback-classic'
+    implementation 'org.codehaus.groovy:groovy:2.5.6'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.github.database-rider:rider-junit5:1.5.3'
+    testCompile 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.junit.platform:junit-platform-runner'
+    testCompile 'org.assertj:assertj-core'
+}
+
+if (!hasProperty('buildProfile')) ext.buildProfile = 'development'
+apply from: "profiles/profile-${buildProfile}.gradle"

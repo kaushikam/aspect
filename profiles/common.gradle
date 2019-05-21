@@ -1,0 +1,32 @@
+project.ext.hibernateProperties = [
+        "datasourceDriverClassName": "org.postgresql.Driver",
+        "datasourceUserName": "kaushik",
+        "datasourcePassword": "password",
+        "datasourceUrl": "jdbc:postgresql://localhost:5432/zeazonz",
+        "dialect": "org.hibernate.dialect.PostgreSQLDialect",
+        "showSQL": "true",
+        "formatSQL": "true"
+]
+project.ext.loggingProperties = [
+        "loggingFileName": "${projectDir}/log/aspectj.log",
+        "rootLogLevel": "INFO",
+        "applicationLogLevel": "DEBUG",
+        "additivity": "false"
+]
+project.ext.springProperties = [
+    "isWebApplication": "none"
+]
+
+project.ext.dbunitProperties = [
+    "datatypeFactory": "org.dbunit.ext.postgresql.PostgresqlDataTypeFactory"
+]
+
+project.ext.applicationProperties = hibernateProperties + loggingProperties + springProperties + dbunitProperties +
+[
+        "applicationTimeZone": "Asia/Kolkata",
+        "locale": "en_IN"
+]
+
+springBoot {
+    mainClassName = 'com.kaushikam.aspect.UserApplication'
+}
