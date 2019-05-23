@@ -1,16 +1,10 @@
 package com.kaushikam.aspect.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
 @Entity
 @Table(name = "user_info")
-@NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id
@@ -23,5 +17,27 @@ public class User {
 
     public String getName() {
         return this.profile.getName();
+    }
+
+    public User() { }
+
+    public User(Profile profile) {
+        this.profile = profile;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

@@ -2,8 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'io.freefair.aspectj.post-compile-weaving' version '3.5.4'
-    id 'org.springframework.boot' version '2.1.5.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
 }
 
 group 'com.kaushikam'
@@ -15,6 +13,7 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 sourceSets {
@@ -26,25 +25,24 @@ mainClassName = 'com.kaushikam.aspect.HelloWorld'
 
 dependencies {
     compile "org.aspectj:aspectjrt:1.9.3"
-    implementation  'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-aop'
 
+
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.2.Final'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
 
     // Logging
-    implementation 'org.slf4j:slf4j-api'
-    implementation 'ch.qos.logback:logback-classic'
+    implementation 'org.slf4j:slf4j-api:1.7.26'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'org.codehaus.groovy:groovy:2.5.6'
-    compileOnly 'org.projectlombok:lombok:1.18.8'
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
     // Testing
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.github.database-rider:rider-junit5:1.5.3'
-    testCompile 'org.junit.jupiter:junit-jupiter-api'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    testImplementation 'org.junit.platform:junit-platform-runner'
-    testCompile 'org.assertj:assertj-core'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.0-M1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.0-M1'
+    testImplementation 'org.junit.platform:junit-platform-runner:1.5.0-M1'
+    testCompile 'org.assertj:assertj-core:3.12.2'
+    // https://mvnrepository.com/artifact/org.dbunit/dbunit
+    testCompile group: 'org.dbunit', name: 'dbunit', version: '2.6.0'
+
 }
 
 if (!hasProperty('buildProfile')) ext.buildProfile = 'development'

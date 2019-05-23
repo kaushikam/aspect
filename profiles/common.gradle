@@ -26,7 +26,3 @@ project.ext.applicationProperties = hibernateProperties + loggingProperties + sp
         "applicationTimeZone": "Asia/Kolkata",
         "locale": "en_IN"
 ]
-
-springBoot {
-    mainClassName = 'com.kaushikam.aspect.UserApplication'
-}
