@@ -1,5 +1,0 @@
-public.user_info:
-  - id: 1
-public.profile:
-  - user_id: 1
-    name: "Kaushik Asokan"

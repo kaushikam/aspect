@@ -5,6 +5,7 @@ import com.kaushikam.aspect.domain.model.UserRepository;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import java.util.NoSuchElementException;
 @RunWith(JUnitPlatform.class)
 public class UserRepositoryHibernateTest extends AbstractTestCase {
 
-    private UserRepository userRepository = new UserRepositoryHibernate();
+    private UserRepository userRepository = new UserRepositoryHibernate(entityManager);
 
     private static Logger logger = LoggerFactory.getLogger("UserRepositoryHibernateTest");
 
@@ -32,5 +33,6 @@ public class UserRepositoryHibernateTest extends AbstractTestCase {
         User user = userRepository.findById(1L).orElseThrow(NoSuchElementException::new);
         assertThat(user).isNotNull();
         assertThat(user.getId()).isEqualTo(1L);
+        assertThat(user.getName()).isEqualTo("Kaushik Asokan");
     }
 }

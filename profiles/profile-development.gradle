@@ -4,6 +4,7 @@ processResources {
     from 'src/main/resources'
     include '**/*application.properties'
     include '**/*hibernate.cfg.xml'
+    include '**/*persistence.xml'
     expand applicationProperties
 }
 

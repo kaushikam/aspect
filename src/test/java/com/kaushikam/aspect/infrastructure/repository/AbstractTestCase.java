@@ -4,32 +4,41 @@ import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 public class AbstractTestCase {
 
-    protected IDatabaseTester databaseTester;
+    protected static IDatabaseTester databaseTester;
+    protected static EntityManager entityManager;
+    private static EntityManagerFactory entityManagerFactory;
 
-    public AbstractTestCase() {
+    @BeforeAll
+    public static void init() throws IOException, ClassNotFoundException {
+        entityManagerFactory = Persistence.createEntityManagerFactory("user");
+        entityManager = entityManagerFactory.createEntityManager();
+
         Properties applicationProperties = new Properties();
+        applicationProperties.load(AbstractTestCase.class.getClassLoader()
+                .getResourceAsStream("application.properties"));
+        databaseTester = new JdbcDatabaseTester(
+                applicationProperties.getProperty("spring.datasource.driver-class-name"),
+                applicationProperties.getProperty("spring.datasource.url"),
+                applicationProperties.getProperty("spring.datasource.username"),
+                applicationProperties.getProperty("spring.datasource.password"));
+    }
 
-        try (InputStream inputStream = getClass().getClassLoader()
-                .getResourceAsStream("application.properties")) {
-            applicationProperties.load(inputStream);
-            databaseTester = new JdbcDatabaseTester(
-                    applicationProperties.getProperty("spring.datasource.driver-class-name"),
-                    applicationProperties.getProperty("spring.datasource.url"),
-                    applicationProperties.getProperty("spring.datasource.username"),
-                    applicationProperties.getProperty("spring.datasource.password")
-            );
-        } catch (IOException | ClassNotFoundException e ) {
-            throw new RuntimeException(e);
-        }
+    @AfterAll
+    public static void close() {
+        entityManager.close();
+        entityManagerFactory.close();
     }
 
     protected IDataSet getDataSet(String fileName) throws Exception {

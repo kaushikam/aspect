@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="user">
+        <class>com.kaushikam.aspect.domain.model.User</class>
+        <class>com.kaushikam.aspect.domain.model.Profile</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="$datasourceDriverClassName"/>
+            <property name="javax.persistence.jdbc.url" value="$datasourceUrl"/>
+            <property name="javax.persistence.jdbc.user" value="$datasourceUserName"/>
+            <property name="javax.persistence.jdbc.password" value="$datasourcePassword"/>
+            <property name="hibernate.dialect" value="$dialect"/>
+        </properties>
+    </persistence-unit>
+</persistence>
