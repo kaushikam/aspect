@@ -5,7 +5,6 @@ import com.kaushikam.aspect.domain.model.UserRepository;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

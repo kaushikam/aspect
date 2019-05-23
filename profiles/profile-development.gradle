@@ -3,15 +3,12 @@ apply from: 'profiles/common.gradle'
 processResources {
     from 'src/main/resources'
     include '**/*application.properties'
-    include '**/*hibernate.cfg.xml'
     include '**/*persistence.xml'
     expand applicationProperties
 }
 
 processTestResources {
     from 'src/test/resources'
-    include '**/*dbunit.yml'
-    include '**/*yml'
     include '**/*xml'
     expand applicationProperties
 }
